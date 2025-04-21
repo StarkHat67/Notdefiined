@@ -2,37 +2,44 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Pra você</title>
+  <title>Entre Linhas</title>
   <style>
     body {
       background-color: #111;
       color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 15%;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 50px;
+    .pergunta {
+      margin-bottom: 40px;
+      font-size: 1.5rem;
+    }
+
+    .botoes {
+      display: flex;
+      gap: 20px;
     }
 
     button {
       padding: 10px 20px;
-      font-size: 18px;
-      margin: 0 20px;
-      cursor: pointer;
+      font-size: 1rem;
       border: none;
-      border-radius: 8px;
-      transition: 0.2s;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
-    #sim {
+    .sim {
       background-color: #0f0;
       color: #000;
     }
 
-    #nao {
+    .fugindo {
       background-color: #f00;
       color: #fff;
       position: absolute;
@@ -40,22 +47,38 @@
   </style>
 </head>
 <body>
-  <h1>Me beijaria amanhã?</h1>
-  <button id="sim" onclick="responder()">Sim</button>
-  <button id="nao" onmouseover="fugir()">Não</button>
+
+  <div class="pergunta" id="pergunta">Você pensou em mim hoje?</div>
+  <div class="botoes">
+    <button class="sim" onclick="responder()">Sim</button>
+    <button class="fugindo" onmouseover="fugir(this)">Não</button>
+    <button class="fugindo" onmouseover="fugir(this)">Não sei</button>
+  </div>
 
   <script>
+    const perguntas = [
+      "Você pensou em mim hoje?",
+      "Você gosta de quando a gente se encontra?",
+      "Você vai me beijar amanhã?"
+    ];
+    let index = 0;
+
     function responder() {
-      document.body.innerHTML = "<h1>Eu sabia que você ia dizer sim.</h1>";
+      index++;
+      if (index < perguntas.length) {
+        document.getElementById("pergunta").innerText = perguntas[index];
+      } else {
+        document.body.innerHTML = "<h1 style='font-family: monospace;'>Então se prepara.</h1>";
+      }
     }
 
-    function fugir() {
-      const btn = document.getElementById("nao");
+    function fugir(botao) {
       const x = Math.random() * (window.innerWidth - 100);
       const y = Math.random() * (window.innerHeight - 40);
-      btn.style.left = `${x}px`;
-      btn.style.top = `${y}px`;
+      botao.style.left = `${x}px`;
+      botao.style.top = `${y}px`;
     }
   </script>
+
 </body>
 </html>
